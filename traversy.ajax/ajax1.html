@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alax 1 - Text FIle</title>
+  </head>
+
+  <body>
+    <button id="button">Get Text File</button>
+    <br><br>
+    <div id="text"></div>
+
+    <script>
+      document.getElementById("button").addEventListener("click", loadText);
+
+      function loadText(){
+          // Create XHR Object
+          var xhr = new XMLHttpRequest();
+          // OPEN - type, url/file, async
+          xhr.open('GET', 'sample2.txt', true)
+
+          xhr.onload = function() {
+            console.log('ReadyState: ', xhr.readyState);
+              if (this.status === 200) {
+                  console.log(this.responseText);
+                  document.getElementById("button").innerHTML = this.responseText;
+              } if (this.status === 404) {
+                document.getElementById("button").innerHTML = 'Not Found';
+              }
+          }
+
+          xhr.onerror = function(){
+              console.log('Request Error...')
+          }
+
+          xhr.send()
+      }
+
+    //   function loadText() {
+    //     // Create XHR Object
+    //     var xhr = new XMLHttpRequest();
+    //     // OPEN - type, url/file, async
+    //     xhr.open("GET", "sample.txt", true);
+
+    //     console.log('ReadyState: ', xhr.readyState);
+
+    //     xhr.onreadystatechange = function(){
+    //       if (this.readyState == 4 && this.status === 200) {
+    //         console.log(this.responseText);
+    //       }
+    //     };
+
+    //     xhr.send();
+    //   }
+
+      // 0	UNSENT	Client has been created. open() not called yet.
+      // 1	OPENED	open() has been called.
+      // 2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
+      // 3	LOADING	Downloading; responseText holds partial data.
+      // 4	DONE	The operation is complete.
+    </script>
+  </body>
+</html>
